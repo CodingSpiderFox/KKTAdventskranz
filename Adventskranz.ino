@@ -18,6 +18,11 @@
 
  This code is in the public domain.
 
+ Transistors: BC550B / BC550C
+ BASE->D0 - D3
+ COLLECTOR-> 3V VCC
+ EMITTER-> LED ANODE
+
  */
 
 #include <ESP8266WiFi.h>
