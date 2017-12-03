@@ -18,11 +18,6 @@
 
  This code is in the public domain.
 
- Transistors: BC550B / BC550C
- BASE->D0 - D3
- COLLECTOR-> 3V VCC
- EMITTER-> LED ANODE
-
  */
 
 #include <ESP8266WiFi.h>
@@ -33,6 +28,11 @@
 #define ADVENT_2 1512860400
 #define ADVENT_3 1513465200
 #define ADVENT_4 1514070000
+
+#define OUT_1 D1
+#define OUT_2 D2
+#define OUT_3 D3
+#define OUT_4 D4
 
 #define OFFSET 0
 
@@ -57,10 +57,10 @@ WiFiUDP udp;
 
 void setup()
 {
-  pinMode(D0, OUTPUT);//>=1512255600 Unixtime
-  pinMode(D1, OUTPUT);//>=1512860400 Unixtime
-  pinMode(D2, OUTPUT);//>=1513465200 Unixtime
-  pinMode(D3, OUTPUT);//>=1514070000 Unixtime
+  pinMode(OUT_1, OUTPUT);//>=1512255600 Unixtime
+  pinMode(OUT_2, OUTPUT);//>=1512860400 Unixtime
+  pinMode(OUT_3, OUTPUT);//>=1513465200 Unixtime
+  pinMode(OUT_4, OUTPUT);//>=1514070000 Unixtime
   Serial.begin(115200);
   Serial.println();
   Serial.println();
@@ -127,28 +127,32 @@ void loop()
     Serial.println(epoch);
     
     if(epoch >= (ADVENT_1 + OFFSET)) {
-      digitalWrite(D0, HIGH); 
+      digitalWrite(OUT_1, HIGH); 
+      Serial.println("OUT_1 ON");
     }
     else {
-      digitalWrite(D0, LOW);
+      digitalWrite(OUT_1, LOW);
     }
     if(epoch >= (ADVENT_2 + OFFSET)) {
-      digitalWrite(D1, HIGH); 
+      digitalWrite(OUT_2, HIGH); 
+      Serial.println("OUT_2 ON");
     }
     else {
-      digitalWrite(D1, LOW);
+      digitalWrite(OUT_2, LOW);
     }
     if(epoch >= (ADVENT_3 + OFFSET)) {
-      digitalWrite(D2, HIGH); 
+      digitalWrite(OUT_3, HIGH); 
+      Serial.println("OUT_3 ON");
     }
     else {
-      digitalWrite(D2, LOW);
+      digitalWrite(OUT_3, LOW);
     }
     if(epoch >= (ADVENT_4 + OFFSET)) {
-      digitalWrite(D3, HIGH); 
+      digitalWrite(OUT_4, HIGH); 
+      Serial.println("OUT_4 ON");
     }
     else {
-      digitalWrite(D3, LOW);
+      digitalWrite(OUT_4, LOW);
     }
 
     // print the hour, minute and second:
@@ -168,7 +172,7 @@ void loop()
     Serial.println(epoch % 60); // print the second
   }
   // wait ten seconds before asking for the time again
-  delay(10000);
+  delay(60000);
 }
 
 // send an NTP request to the time server at the given address
